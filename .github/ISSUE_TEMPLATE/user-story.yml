@@ -1,0 +1,26 @@
+name: Historia de usuario
+description: US con criterios de aceptación y relaciones
+title: "US-XX: "
+body:
+  - type: textarea
+    id: us
+    attributes:
+      label: Historia de usuario
+      placeholder: "**Como** ..., **quiero** ..., **para** ..."
+    validations:
+      required: true
+  - type: textarea
+    id: criterios
+    attributes:
+      label: Criterios de aceptación
+      value: "- [ ] Dado ..., cuando ..., entonces ..."
+    validations:
+      required: true
+  - type: textarea
+    id: relaciones
+    attributes:
+      label: Relaciones
+      value: |
+        Depende de: #
+        Bloquea: #
+        Épica: #
