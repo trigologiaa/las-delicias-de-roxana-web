@@ -18,7 +18,9 @@
     "test:unit": "vitest run --project unit",
     "test:integration": "vitest run --project integration",
     "test:acceptance": "vitest run --project acceptance",
-    "check": "pnpm lint && pnpm typecheck && pnpm test"
+    "check": "pnpm lint && pnpm typecheck && pnpm test",
+    "api:generate": "openapi-typescript openapi.json --output src/lib/api/generated/schema.ts",
+    "api:check": "pnpm api:generate --check"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

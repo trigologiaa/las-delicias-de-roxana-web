@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-
+# Verificación única de delicias-web. Igual en local y en CI.
+#   ./scripts/verify.sh        -> completo
+#   ./scripts/verify.sh fast   -> lint + tipos + arquitectura + unit
 set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
@@ -32,6 +34,8 @@ step "Tests unitarios"
 pnpm test:unit
 
 if [ "$MODE" = "full" ]; then
+  step "Cliente de API al día con el contrato"
+  pnpm api:check
   step "Tests de integración (API simulada)"
   pnpm test:integration
   step "Tests de aceptación"
@@ -41,3 +45,4 @@ if [ "$MODE" = "full" ]; then
 fi
 
 printf '\n\033[1;32m✔ verify (%s) OK\033[0m\n' "$MODE"
+
