@@ -26,14 +26,16 @@
   },
   "exclude": ["node_modules"],
   "include": [
-    "next-env.d.ts",
-    "src",
-    "test",
-    "*.config.ts",
+    "**/*.mts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
+    "*.config.ts",
+    ".next/acceptance/dev/types/**/*.ts",
+    ".next/acceptance/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    ".next/types/**/*.ts",
+    "next-env.d.ts",
+    "src",
+    "test"
   ]
 }
