@@ -29,23 +29,29 @@ describe("API client", (): void => {
     api.close();
   });
 
-  it("calls the API declared in API_URL", async (): Promise<void> => {
-    vi.stubEnv("API_URL", "http://api.test");
-    api.use(
-      http.get(
-        "http://api.test/v1/health",
-        (): HttpResponse<{ status: string; version: string }> => {
-          return HttpResponse.json({
-            status: "ok",
-            version: "9.8.7",
-          });
-        },
-      ),
-    );
-    const { data } = await createApiClient().GET("/v1/health");
-    expect(data).toEqual({
-      status: "ok",
-      version: "9.8.7",
-    });
-  });
+  it.each([
+    ["http://api.test", "9.8.7"],
+    ["http://other-api.test:4000", "1.2.3"],
+  ])(
+    "calls the API declared in API_URL (%s)",
+    async (url, version): Promise<void> => {
+      vi.stubEnv("API_URL", url);
+      api.use(
+        http.get(
+          `${url}/v1/health`,
+          (): HttpResponse<{ status: string; version: string }> => {
+            return HttpResponse.json({
+              status: "ok",
+              version,
+            });
+          },
+        ),
+      );
+      const { data } = await createApiClient().GET("/v1/health");
+      expect(data).toEqual({
+        status: "ok",
+        version,
+      });
+    },
+  );
 });
